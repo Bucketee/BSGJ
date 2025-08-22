@@ -50,7 +50,7 @@ public class EventManager : MonoBehaviour
     
     public void PostNotification(EVENT_TYPE eventType, Component sender, object param = null) //이벤트 개시
     {
-        Debug.Log(eventType.ToString());
+        //Debug.Log(eventType.ToString());
         List<IListener> ListenList = null;
 
         if (!Listeners.TryGetValue(eventType, out ListenList))
