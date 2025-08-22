@@ -2,6 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+
+public enum SkillType
+{
+    Slash,
+    
+}
 
 public class Player : MonoBehaviour
 {
@@ -34,7 +41,8 @@ public class Player : MonoBehaviour
         if (input == Vector2.zero) return;
         //Debug.Log(input.ToString());
         //transform.position += (Vector3)input;
-        EventManager.Instance.PostNotification(EVENT_TYPE.EUseMove, this, input.ToString());
+        Vector2 dest = transform.position + (Vector3)input;
+        EventManager.Instance.PostNotification(EVENT_TYPE.EUseMove, this, dest);
         MovingAnimation(input);
     }
 
@@ -60,5 +68,32 @@ public class Player : MonoBehaviour
     void OnMoveEnd()
     {
         EventManager.Instance.PostNotification(EVENT_TYPE.EAnimDone, this);
+    }
+
+    void OnSkill()
+    {
+        if (_gameManager.CurrentState != GAME_STATE.SIsReady)
+        {
+            Debug.LogError(("Can't use Skill!"));
+            return;
+        }
+        EventManager.Instance.PostNotification(EVENT_TYPE.EUseSkill, this);
+    }
+
+    private void UseSkill()
+    {
+        
+    }
+}
+
+public class SkillInfo
+{
+    private List<Vector2> points = new List<Vector2>();
+    private int damage = 0;
+
+    public SkillInfo(List<Vector2> points, int damage)
+    {
+        this.points = points;
+        this.damage = damage;
     }
 }
