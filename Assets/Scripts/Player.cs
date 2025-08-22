@@ -18,8 +18,9 @@ public class Player : MonoBehaviour
     void OnMove(InputValue value)
     {
         Vector2 input = value.Get<Vector2>();
-        Debug.Log(input.ToString());
+        if (input == Vector2.zero) return;
+        //Debug.Log(input.ToString());
         transform.position += (Vector3)input;
-        
+        EventManager.Instance.PostNotification(EVENT_TYPE.EUseMove, this, input.ToString());
     }
 }
