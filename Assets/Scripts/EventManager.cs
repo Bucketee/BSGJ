@@ -35,17 +35,27 @@ public class EventManager : MonoBehaviour
         ListenList.Add(Listener);
         Listeners.Add(eventType, ListenList);
     }
+
+    public void RemoveListener(EVENT_TYPE eventType, IListener Listener)
+    {
+        List<IListener> ListenList = null;
+        
+        if (Listeners.TryGetValue(eventType, out ListenList))
+        {
+            ListenList.Remove(Listener);
+        }
+    }
     
     public void RemoveEvent(EVENT_TYPE eventType) => Listeners.Remove(eventType); //쓰지 않는 이벤트 삭제
     
     public void PostNotification(EVENT_TYPE eventType, Component sender, object param = null) //이벤트 개시
     {
+        Debug.Log(eventType.ToString());
         List<IListener> ListenList = null;
 
         if (!Listeners.TryGetValue(eventType, out ListenList))
             return;
-
-
+        
         for (int i = 0; i < ListenList.Count; i++)
         {
             ListenList?[i].OnEvent(eventType, sender, param);

@@ -6,6 +6,7 @@ public enum EVENT_TYPE
     EGameEnd,   //end the game
     EUseMove,   //player move
     EUseSkill,  //player use skill
+    EAnimDone,  //animation is done
 }
 
 public interface IListener
