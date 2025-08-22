@@ -7,7 +7,7 @@ public class MapGenerator : MonoBehaviour, IListener
 {
     [SerializeField] private Vector2 currentTilePos = new Vector2(0, 0);
     private Transform player;
-    [SerializeField] private float threshold = 5f;
+    private float threshold = 5f;
 
     [Header("Tilemap")]
     [SerializeField] private GameObject tilemapParent;
@@ -48,28 +48,28 @@ public class MapGenerator : MonoBehaviour, IListener
                 float y = player.position.y;
 
                 // 오른쪽으로
-                if (x - currentTilePos.x > threshold)
+                if (x - currentTilePos.x >= threshold)
                 {
                     var leftCol = GetLeftColumn();
                     moveThreeMap(leftCol, isVertical: false, direction: +1);
                     currentTilePos += new Vector2(cell, 0);
                 }
                 // 왼쪽으로
-                else if (x - currentTilePos.x < -threshold)
+                else if (x - currentTilePos.x <= -threshold)
                 {
                     var rightCol = GetRightColumn();
                     moveThreeMap(rightCol, isVertical: false, direction: -1);
                     currentTilePos += new Vector2(-cell, 0);
                 }
                 // 위로
-                else if (y - currentTilePos.y > threshold)
+                else if (y - currentTilePos.y >= threshold)
                 {
                     var bottomRow = GetBottomRow();
                     moveThreeMap(bottomRow, isVertical: true, direction: +1);
                     currentTilePos += new Vector2(0, cell);
                 }
                 // 아래로
-                else if (y - currentTilePos.y < -threshold)
+                else if (y - currentTilePos.y <= -threshold)
                 {
                     var topRow = GetTopRow();
                     moveThreeMap(topRow, isVertical: true, direction: -1);
