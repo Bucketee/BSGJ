@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.XR;
 
+[SerializeField]
 public enum GAME_STATE
 {
     SIsReady,
@@ -9,6 +11,8 @@ public enum GAME_STATE
 
 public class GameManager : MonoBehaviour, IListener
 {
+    public Player player = null;
+    
     public static GameManager Instance { get { return _instance; } }
     private static GameManager _instance = null;
     
@@ -20,6 +24,8 @@ public class GameManager : MonoBehaviour, IListener
 
     void Awake()
     {
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        
         if(_instance == null)
         {
             _instance = this;
